@@ -135,9 +135,17 @@ Creating another event with the exact same room, time, and date results in a val
 
 ![Conflict Validation](public/screenshots/Screenshot5.png)
 
-## Reflection and Future Enhancements
+## Reflection
 
-This assignment provided valuable experience in applying Laravel's validation system, Eloquent relationships, and frontend integration with JavaScript libraries. Key challenges included accurately implementing complex time-based constraints and ensuring a smooth user experience across different views.
+This project was a great learning experience, but it definitely came with its share of challenges.
+
+One of the main difficulties I faced was getting the time-based validation just right. At first, I was just checking for simple overlaps, but then I had to account for the 15-minute buffer between events. I spent a lot of time debugging my queries to make sure they correctly handled all the edge cases, like events ending right when another one was supposed to start. I ended up using a combination of `where` clauses in my Laravel validation rule to check for all the possible overlap scenarios. It was a bit of a headache, but it was really satisfying when it finally worked perfectly.
+
+Another challenge was integrating the FullCalendar.io library with my Laravel backend. It took me a while to figure out how to format the event data from my database into the JSON format that FullCalendar expected. I had to create a new controller method to fetch the events and return them as JSON. I also had to write some JavaScript to initialize the calendar and handle the event rendering.
+
+For this project, I used an AI assistant to help me with a few things. I used it to help me brainstorm the initial database schema and to get some ideas for the overall project structure. I also used it to help me debug some of my validation logic. For example, I was having trouble with a specific query, and the AI helped me spot a mistake in my logic. It was like having a pair programmer that I could bounce ideas off of. It didn't write the code for me, but it definitely helped me get unstuck a few times and pointed me in the right direction. It was a really useful tool for learning and for speeding up my development process.
+
+## Future Enhancements
 
 Potential future enhancements include:
 
