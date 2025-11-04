@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRoomRequest extends FormRequest
 {
@@ -22,7 +23,12 @@ class StoreRoomRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255|unique:rooms,name',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('rooms')->ignore($this->route('room')),
+            ],
             'capacity' => 'required|integer|min:1',
             'open_time' => 'required|date_format:H:i',
             'close_time' => 'required|date_format:H:i|after:open_time',
