@@ -16,6 +16,7 @@ class Event extends Model
         'participants',
         'room_id',
         'organizer_id',
+        'color',
     ];
 
     protected $casts = [

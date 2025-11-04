@@ -34,7 +34,9 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        Event::create($request->validated());
+        $data = $request->validated();
+        $data['color'] = sprintf('#%06X', mt_rand(0, 0xFFFFFF));
+        Event::create($data);
 
         return redirect()->route('events.index')->with('success', 'Event created successfully.');
     }
@@ -89,6 +91,7 @@ class EventController extends Controller
                 'title' => $event->title,
                 'start' => $event->start_time,
                 'end' => $event->end_time,
+                'color' => $event->color,
                 'room_name' => $event->room->name ?? 'N/A',
                 'organizer_name' => $event->organizer->name ?? 'N/A',
             ];
