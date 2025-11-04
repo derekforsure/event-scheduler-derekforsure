@@ -145,12 +145,4 @@ Another challenge was integrating the FullCalendar.io library with my Laravel ba
 
 For this project, I used an AI assistant to help me with a few things. I used it to help me brainstorm the initial database schema and to get some ideas for the overall project structure. I also used it to help me debug some of my validation logic. For example, I was having trouble with a specific query, and the AI helped me spot a mistake in my logic. It was like having a pair programmer that I could bounce ideas off of. It didn't write the code for me, but it definitely helped me get unstuck a few times and pointed me in the right direction. It was a really useful tool for learning and for speeding up my development process.
 
-## Future Enhancements
-
-Potential future enhancements include:
-
--   **User Roles & Permissions:** Implement more granular access control (e.g., only certain roles can create/edit rooms).
--   **Event Series/Recurrence:** Allow events to be scheduled as recurring series.
--   **Notifications:** Implement email or in-app notifications for event changes.
--   **Improved UI/UX:** Enhance the calendar with drag-and-drop functionality for events.
--   **Automated Testing:** Add comprehensive unit and feature tests for all functionalities.
+Overall, this is quite rewarding experience and certainly helpful in future upcoming projects
