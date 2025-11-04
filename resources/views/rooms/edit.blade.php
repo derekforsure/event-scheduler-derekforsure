@@ -1,39 +1,54 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Edit Room') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <h1 class="text-2xl font-bold mb-4">Edit Room</h1>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form method="POST" action="{{ route('rooms.update', $room) }}">
+                        @csrf
+                        @method('PUT')
 
-    <form action="{{ route('rooms.update', $room->id) }}" method="POST" class="w-full max-w-lg">
-        @csrf
-        @method('PUT')
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="name" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Room Name</label>
-                <input type="text" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="name" name="name" value="{{ old('name', $room->name) }}" required>
+                        <!-- Name -->
+                        <div>
+                            <x-input-label for="name" :value="__('Name')" />
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name', $room->name)" required autofocus />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+
+                        <!-- Capacity -->
+                        <div class="mt-4">
+                            <x-input-label for="capacity" :value="__('Capacity')" />
+                            <x-text-input id="capacity" class="block mt-1 w-full" type="number" name="capacity" :value="old('capacity', $room->capacity)" required min="1" />
+                            <x-input-error :messages="$errors->get('capacity')" class="mt-2" />
+                        </div>
+
+                        <!-- Open Time -->
+                        <div class="mt-4">
+                            <x-input-label for="open_time" :value="__('Open Time')" />
+                            <x-text-input id="open_time" class="block mt-1 w-full" type="time" name="open_time" :value="old('open_time', $room->open_time)" required />
+                            <x-input-error :messages="$errors->get('open_time')" class="mt-2" />
+                        </div>
+
+                        <!-- Close Time -->
+                        <div class="mt-4">
+                            <x-input-label for="close_time" :value="__('Close Time')" />
+                            <x-text-input id="close_time" class="block mt-1 w-full" type="time" name="close_time" :value="old('close_time', $room->close_time)" required />
+                            <x-input-error :messages="$errors->get('close_time')" class="mt-2" />
+                        </div>
+
+                        <div class="flex items-center justify-end mt-4">
+                            <x-primary-button class="ms-4">
+                                {{ __('Update Room') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="capacity" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Capacity</label>
-                <input type="number" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="capacity" name="capacity" value="{{ old('capacity', $room->capacity) }}" required>
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label for="open_time" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Open Time</label>
-                <input type="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="open_time" name="open_time" value="{{ old('open_time', \Carbon\Carbon::parse($room->open_time)->format('H:i')) }}" required>
-            </div>
-            <div class="w-full md:w-1/2 px-3">
-                <label for="close_time" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Close Time</label>
-                <input type="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="close_time" name="close_time" value="{{ old('close_time', \Carbon\Carbon::parse($room->close_time)->format('H:i')) }}" required>
-            </div>
-        </div>
-        <div class="flex items-center justify-between">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
-            <a href="{{ route('rooms.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
-        </div>
-    </form>
-
-    <div id="form-messages" class="mt-3"></div>
-
-@endsection
+    </div>
+</x-app-layout>
