@@ -111,6 +111,30 @@ All scheduling constraints are enforced through custom validation logic within t
 -   **Implementation:** The event's start time (hour and minute) is checked against the room's `open_time`, and the event's end time (hour and minute) is checked against the room's `close_time`. If any part of the event falls outside these daily operating hours, a validation error occurs.
 -   **Multi-Day Events:** The current implementation allows multi-day events, but strictly enforces that the event's start time (on its start day) must be after or equal to the room's `open_time`, and the event's end time (on its end day) must be before or equal to the room's `close_time`. This ensures that even multi-day events respect the daily operational window of the room.
 
+## Testing Screenshots and Results
+
+### 1. Create a Room
+
+![Create a Room](public/screenshots/Screenshot1.png)
+
+### 2. Successfully Created a Room
+
+![Successfully Created a Room](public/screenshots/Screenshot2.png)
+
+### 3. Create an Event with that Room
+
+![Create an Event with that Room](public/screenshots/Screenshot3.png)
+
+### 4. Successfully Created an Event
+
+![Successfully Created an Event](public/screenshots/Screenshot4.png)
+
+### 5. Conflict Validation
+
+Creating another event with the exact same room, time, and date results in a validation error, as expected.
+
+![Conflict Validation](public/screenshots/Screenshot5.png)
+
 ## Reflection and Future Enhancements
 
 This assignment provided valuable experience in applying Laravel's validation system, Eloquent relationships, and frontend integration with JavaScript libraries. Key challenges included accurately implementing complex time-based constraints and ensuring a smooth user experience across different views.
