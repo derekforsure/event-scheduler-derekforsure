@@ -10,17 +10,17 @@ class Event extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'date',
-        'time',
+        'title',
+        'start_time',
+        'end_time',
+        'participants',
         'room_id',
-        'user_id',
+        'organizer_id',
     ];
 
     protected $casts = [
-        'date' => 'date',
-        'time' => 'datetime',
+        'start_time' => 'datetime',
+        'end_time' => 'datetime',
     ];
 
     public function room()
@@ -28,8 +28,8 @@ class Event extends Model
         return $this->belongsTo(Room::class);
     }
 
-    public function user()
+    public function organizer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'organizer_id');
     }
 }

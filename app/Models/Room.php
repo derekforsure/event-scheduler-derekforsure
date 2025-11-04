@@ -9,7 +9,7 @@ class Room extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'capacity'];
+    protected $fillable = ['name', 'capacity', 'open_time', 'close_time'];
 
     public function events()
     {
