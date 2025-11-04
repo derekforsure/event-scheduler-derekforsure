@@ -27,7 +27,7 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
                     },
-                    events: '{{ url('/api/events') }}',
+                    events: "{{ url('/api/events') }}",
                     eventClick: function(info) {
                         alert('Event: ' + info.event.title + '\nRoom: ' + info.event.extendedProps.room_name + '\nOrganizer: ' + info.event.extendedProps.organizer_name);
                     }

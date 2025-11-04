@@ -42,7 +42,7 @@ To get the project up and running on your local machine, follow these steps:
 
 1.  **Clone the repository:**
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/Asia-Pacific-International-university/event-scheduler-TainYanTun.git
     cd event-management-system
     ```
 
@@ -122,11 +122,3 @@ Potential future enhancements include:
 -   **Notifications:** Implement email or in-app notifications for event changes.
 -   **Improved UI/UX:** Enhance the calendar with drag-and-drop functionality for events.
 -   **Automated Testing:** Add comprehensive unit and feature tests for all functionalities.
-
-## Screenshots
-
-*(To be added manually after deployment/testing)*
-
-## AI Usage Experience
-
-*(To be filled out by the student)*
