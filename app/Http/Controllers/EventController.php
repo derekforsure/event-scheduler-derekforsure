@@ -94,4 +94,13 @@ class EventController extends Controller
             ];
         }));
     }
+
+    /**
+     * Display a listing of events for a specific room.
+     */
+    public function eventsByRoom(Room $room)
+    {
+        $events = $room->events()->with(['organizer'])->get();
+        return view('events.by-room', compact('room', 'events'));
+    }
 }

@@ -18,6 +18,7 @@ Route::middleware(['web'])->group(function () {
     Route::resource('events', EventController::class);
     Route::resource('rooms', RoomController::class);
     Route::get('/api/events', [EventController::class, 'apiEvents']);
+    Route::get('/rooms/{room}/events', [EventController::class, 'eventsByRoom'])->name('rooms.events');
 });
 
 Route::get('/dashboard', function () {

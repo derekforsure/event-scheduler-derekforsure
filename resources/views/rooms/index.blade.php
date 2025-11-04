@@ -38,6 +38,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $room->open_time }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap">{{ $room->close_time }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="{{ route('rooms.events', $room) }}" class="text-blue-600 hover:text-blue-900 mr-3">View Events</a>
                                             <a href="{{ route('rooms.edit', $room) }}" class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
                                             <form action="{{ route('rooms.destroy', $room) }}" method="POST" class="inline-block">
                                                 @csrf
