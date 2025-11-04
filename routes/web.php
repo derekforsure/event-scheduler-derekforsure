@@ -4,14 +4,20 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
-    return view('welcome');
+    if (Auth::check()) {
+        return redirect()->route('dashboard');
+    } else {
+        return redirect()->route('login');
+    }
 });
 
 Route::middleware(['web'])->group(function () {
     Route::resource('events', EventController::class);
     Route::resource('rooms', RoomController::class);
+    Route::get('/api/events', [EventController::class, 'apiEvents']);
 });
 
 Route::get('/dashboard', function () {

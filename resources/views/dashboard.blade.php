@@ -9,16 +9,31 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-
-                    <div class="mt-4">
-                        <a href="{{ route('events.index') }}" class="text-blue-500 hover:underline">View Events</a>
-                    </div>
-                    <div class="mt-2">
-                        <a href="{{ route('rooms.index') }}" class="text-blue-500 hover:underline">View Rooms</a>
-                    </div>
+                    <div id='calendar'></div>
                 </div>
             </div>
         </div>
     </div>
+
+    @push('scripts')
+        <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var calendarEl = document.getElementById('calendar');
+                var calendar = new FullCalendar.Calendar(calendarEl, {
+                    initialView: 'dayGridMonth',
+                    headerToolbar: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                    },
+                    events: '{{ url('/api/events') }}',
+                    eventClick: function(info) {
+                        alert('Event: ' + info.event.title + '\nRoom: ' + info.event.extendedProps.room_name + '\nOrganizer: ' + info.event.extendedProps.organizer_name);
+                    }
+                });
+                calendar.render();
+            });
+        </script>
+    @endpush
 </x-app-layout>

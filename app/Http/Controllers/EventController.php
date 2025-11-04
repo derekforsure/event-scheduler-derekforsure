@@ -66,7 +66,6 @@ class EventController extends Controller
 
         return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -75,5 +74,24 @@ class EventController extends Controller
         $event->delete();
 
         return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
+    }
+
+    /**
+     * Get events for FullCalendar.
+     */
+    public function apiEvents()
+    {
+        $events = Event::with(['room', 'organizer'])->get();
+
+        return response()->json($events->map(function ($event) {
+            return [
+                'id' => $event->id,
+                'title' => $event->title,
+                'start' => $event->start_time,
+                'end' => $event->end_time,
+                'room_name' => $event->room->name ?? 'N/A',
+                'organizer_name' => $event->organizer->name ?? 'N/A',
+            ];
+        }));
     }
 }
