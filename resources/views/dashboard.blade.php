@@ -10,6 +10,13 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     {{ __("You're logged in!") }}
+
+                    <div class="mt-4">
+                        <a href="{{ route('events.index') }}" class="text-blue-500 hover:underline">View Events</a>
+                    </div>
+                    <div class="mt-2">
+                        <a href="{{ route('rooms.index') }}" class="text-blue-500 hover:underline">View Rooms</a>
+                    </div>
                 </div>
             </div>
         </div>

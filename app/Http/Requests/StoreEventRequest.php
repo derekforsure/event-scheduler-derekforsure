@@ -26,8 +26,8 @@ class StoreEventRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'start_time' => 'required|date',
-            'end_time' => 'required|date|after:start_time',
+            'start_time' => 'required|date_format:Y-m-d\TH:i',
+            'end_time' => 'required|date_format:Y-m-d\TH:i|after:start_time',
             'participants' => 'required|integer|min:1',
             'room_id' => 'required|exists:rooms,id',
             'organizer_id' => 'required|exists:users,id',
