@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Event;
+use App\Models\Room;
+use App\Models\User;
 use App\Http\Requests\StoreEventRequest;
 use Illuminate\Http\Request;
 
@@ -22,7 +24,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $rooms = Room::all();
+        $organizers = User::all();
+        return view('events.create', compact('rooms', 'organizers'));
     }
 
     /**
@@ -48,15 +52,19 @@ class EventController extends Controller
      */
     public function edit(Event $event)
     {
-        //
+        $rooms = Room::all();
+        $organizers = User::all();
+        return view('events.edit', compact('event', 'rooms', 'organizers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(StoreEventRequest $request, Event $event)
     {
-        //
+        $event->update($request->validated());
+
+        return redirect()->route('events.index')->with('success', 'Event updated successfully.');
     }
 
     /**
@@ -64,6 +72,8 @@ class EventController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+        $event->delete();
+
+        return redirect()->route('events.index')->with('success', 'Event deleted successfully.');
     }
 }

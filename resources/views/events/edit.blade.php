@@ -1,67 +1,82 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Edit Event') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-    <h1 class="text-2xl font-bold mb-4">Edit Event</h1>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form method="POST" action="{{ route('events.update', $event) }}">
+                        @csrf
+                        @method('PUT')
 
-    <form action="{{ route('events.update', $event->id) }}" method="POST" class="w-full max-w-lg">
-        @csrf
-        @method('PUT')
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="title" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Event Title</label>
-                <input type="text" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="title" name="title" value="{{ old('title', $event->title) }}" required>
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label for="start_date" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Start Date</label>
-                <input type="date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="start_date" name="start_date" value="{{ old('start_date', \Carbon\Carbon::parse($event->start_time)->format('Y-m-d')) }}" required>
-            </div>
-            <div class="w-full md:w-1/2 px-3">
-                <label for="start_time" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Start Time</label>
-                <input type="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="start_time" name="start_time" value="{{ old('start_time', \Carbon\Carbon::parse($event->start_time)->format('H:i')) }}" required>
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
-                <label for="end_date" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">End Date</label>
-                <input type="date" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="end_date" name="end_date" value="{{ old('end_date', \Carbon\Carbon::parse($event->end_time)->format('Y-m-d')) }}" required>
-            </div>
-            <div class="w-full md:w-1/2 px-3">
-                <label for="end_time" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">End Time</label>
-                <input type="time" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="end_time" name="end_time" value="{{ old('end_time', \Carbon\Carbon::parse($event->end_time)->format('H:i')) }}" required>
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="participants" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Participants</label>
-                <input type="number" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="participants" name="participants" value="{{ old('participants', $event->participants) }}" required>
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="room_id" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Room</label>
-                <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="room_id" name="room_id" required>
-                    <option value="">Select Room</option>
-                    {{-- Rooms will be loaded here by JavaScript or passed from controller --}}
-                </select>
-            </div>
-        </div>
-        <div class="flex flex-wrap -mx-3 mb-6">
-            <div class="w-full px-3">
-                <label for="user_id" class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">Organizer</label>
-                <select class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="user_id" name="user_id" required>
-                    <option value="">Select Organizer</option>
-                    {{-- Users will be loaded here by JavaScript or passed from controller --}}
-                </select>
-            </div>
-        </div>
-        <div class="flex items-center justify-between">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update</button>
-            <a href="{{ route('events.index') }}" class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Cancel</a>
-        </div>
-    </form>
+                        <!-- Title -->
+                        <div>
+                            <x-input-label for="title" :value="__('Title')" />
+                            <x-text-input id="title" class="block mt-1 w-full" type="text" name="title" :value="old('title', $event->title)" required autofocus />
+                            <x-input-error :messages="$errors->get('title')" class="mt-2" />
+                        </div>
 
-    <div id="form-messages" class="mt-3"></div>
+                        <!-- Start Time -->
+                        <div class="mt-4">
+                            <x-input-label for="start_time" :value="__('Start Time')" />
+                            <x-text-input id="start_time" class="block mt-1 w-full" type="datetime-local" name="start_time" :value="old('start_time', $event->start_time ? $event->start_time->format('Y-m-d\TH:i') : '')" required />
+                            <x-input-error :messages="$errors->get('start_time')" class="mt-2" />
+                        </div>
 
-@endsection
+                        <!-- End Time -->
+                        <div class="mt-4">
+                            <x-input-label for="end_time" :value="__('End Time')" />
+                            <x-text-input id="end_time" class="block mt-1 w-full" type="datetime-local" name="end_time" :value="old('end_time', $event->end_time ? $event->end_time->format('Y-m-d\TH:i') : '')" required />
+                            <x-input-error :messages="$errors->get('end_time')" class="mt-2" />
+                        </div>
+
+                        <!-- Participants -->
+                        <div class="mt-4">
+                            <x-input-label for="participants" :value="__('Participants')" />
+                            <x-text-input id="participants" class="block mt-1 w-full" type="number" name="participants" :value="old('participants', $event->participants)" required min="1" />
+                            <x-input-error :messages="$errors->get('participants')" class="mt-2" />
+                        </div>
+
+                        <!-- Room -->
+                        <div class="mt-4">
+                            <x-input-label for="room_id" :value="__('Room')" />
+                            <select id="room_id" name="room_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <option value="">Select a Room</option>
+                                @foreach ($rooms as $room)
+                                    <option value="{{ $room->id }}" {{ old('room_id', $event->room_id) == $room->id ? 'selected' : '' }}>
+                                        {{ $room->name }} (Capacity: {{ $room->capacity }}, Open: {{ $room->open_time }}, Close: {{ $room->close_time }})
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('room_id')" class="mt-2" />
+                        </div>
+
+                        <!-- Organizer -->
+                        <div class="mt-4">
+                            <x-input-label for="organizer_id" :value="__('Organizer')" />
+                            <select id="organizer_id" name="organizer_id" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                                <option value="">Select an Organizer</option>
+                                @foreach ($organizers as $organizer)
+                                    <option value="{{ $organizer->id }}" {{ old('organizer_id', $event->organizer_id) == $organizer->id ? 'selected' : '' }}>
+                                        {{ $organizer->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <x-input-error :messages="$errors->get('organizer_id')" class="mt-2" />
+                        </div>
+
+                        <div class="flex items-center justify-end mt-4">
+                            <x-primary-button class="ms-4">
+                                {{ __('Update Event') }}
+                            </x-primary-button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
